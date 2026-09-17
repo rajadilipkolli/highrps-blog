@@ -1,0 +1,20 @@
+{
+ "AppType": "Spring Boot + Angular Full Stack",
+ "AppName": "highrps-blog",
+ "GroupID": "com.highrps",
+ "ArtifactID": "blog",
+ "AppVersion": "1.0.0",
+ "BasePackage": "com.highrps.blog",
+ "BuildTool": "Maven",
+ "PersistenceType": "Spring Data JPA",
+ "DbType": "PostgreSQL",
+ "DbMigrationTool": "Liquibase",
+ "SpringCloudAWSSupport": true,
+ "ThymeleafSupport": false,
+ "HTMXSupport": false,
+ "EmailSupport": true,
+ "RabbitMQSupport": true,
+ "RedisCachingSupport": true,
+ "OpenTelemetrySupport": true,
+ "K8sSupport": true
+}

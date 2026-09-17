@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://docs.liquibase.com/concepts/changelogs/xml-format.html -->
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="000001-createTable-users" author="app">
+        <createSequence
+                sequenceName="user_id_seq"
+                incrementBy="50"
+                startValue="100"
+        />
+        <createTable tableName="users">
+            <column name="id" type="bigint" defaultValueSequenceNext="user_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="text">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uc_users_email"/>
+            </column>
+            <column name="password" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="version" type="bigint" defaultValue="0"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="000002-insert-users" author="app">
+        <comment>insert users</comment>
+        <sql>
+            insert into users(email, password, name, role, created_at) values
+            ('admin@gmail.com', '$2a$10$hKDVYxLefVHV/vtuPhWD3OigtRyOykRLDdUAp80Z1crSoS1lFqaFS', 'Administrator', 'ROLE_ADMIN', CURRENT_TIMESTAMP),
+            ('demouser@gmail.com', '$2a$10$CDAk0r/V8cvHUj.gzstta.xfvbkJY6kHrjL8pzyQWLsWMzUmByWVC', 'Demo User','ROLE_USER', CURRENT_TIMESTAMP);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

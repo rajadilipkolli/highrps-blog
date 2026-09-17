@@ -1,0 +1,78 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+  
+  floci:
+    image: floci/floci:latest-compat
+    ports:
+      - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./src/test/resources/floci-init/ready.d:/etc/floci/init/ready.d:ro
+    environment:
+      AWS_DEFAULT_REGION: us-east-1
+  mailpit:
+    image: axllent/mailpit:v1.31
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+  rabbitmq:
+    image: rabbitmq:4-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  redis:
+    image: redis:8-alpine
+    ports:
+      - "6379:6379"
+  grafana-lgtm:
+    image: grafana/otel-lgtm:0.30.0
+    ports:
+      - "3000:3000"
+      - "4317:4317"
+      - "4318:4318"
+  
+
+  blog:
+    image: your_dockerhub_username/blog
+    container_name: blog
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EMAIL_HOST: mailpit
+      EMAIL_PORT: 1025
+      SPRING_CLOUD_AWS_ENDPOINT: http://localhost:4566
+      SPRING_CLOUD_AWS_S3_ENDPOINT: http://localhost:4566
+      SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY: test
+      SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY: test
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      TRACING_ENABLED: true
+      METRICS_EXPORT_URL: http://grafana-lgtm:4318/v1/metrics
+      TRACES_EXPORT_URL: http://grafana-lgtm:4318/v1/traces
+      LOGS_EXPORT_URL: http://grafana-lgtm:4318/v1/logs
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - mailpit
+      - floci
+      - rabbitmq
+      - redis
+      - grafana-lgtm
+    restart: unless-stopped
+    profiles:
+      - app
