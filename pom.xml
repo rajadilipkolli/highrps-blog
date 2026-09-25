@@ -20,7 +20,7 @@
     <jjwt.version>0.13.0</jjwt.version>
     <springdoc-openapi.version>3.1.1</springdoc-openapi.version>
     <datasource-micrometer-spring-boot.version>2.3.0</datasource-micrometer-spring-boot.version>
-    <bootui.version>1.18.0</bootui.version>
+    <bootui.version>1.19.0</bootui.version>
     <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
     <jacoco.minimum.coverage>50%</jacoco.minimum.coverage>
     <palantir-java-format.version>2.96.0</palantir-java-format.version>
