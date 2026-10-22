@@ -13,6 +13,11 @@ on:
       - "Taskfile.yml"
       - "renovate.json"
       - "docs/**"
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   build:
