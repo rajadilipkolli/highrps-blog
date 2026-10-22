@@ -27,7 +27,7 @@ public class TestcontainersConfig {
     static GenericContainer<?> redis = new GenericContainer<>(parse("redis:8-alpine")).withExposedPorts(6379);
 
     @Container
-    static LgtmStackContainer lgtm = new LgtmStackContainer(parse("grafana/otel-lgtm:0.33.0"));
+    static LgtmStackContainer lgtm = new LgtmStackContainer(parse("grafana/otel-lgtm:0.37.0"));
 
     @Bean
     @ServiceConnection
