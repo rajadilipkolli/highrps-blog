@@ -21,7 +21,7 @@
     <springdoc-openapi.version>3.2.0</springdoc-openapi.version>
     <datasource-micrometer-spring-boot.version>2.3.0</datasource-micrometer-spring-boot.version>
     <bootui.version>2.2.0</bootui.version>
-    <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.16</jacoco-maven-plugin.version>
     <jacoco.minimum.coverage>50%</jacoco.minimum.coverage>
     <palantir-java-format.version>2.102.0</palantir-java-format.version>
     <spotless.version>3.10.4</spotless.version>
